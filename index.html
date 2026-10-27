@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>外語教學組｜崑山科技大學通識教育中心</title>
+<style>
+:root{
+  --bg:#f3f5fa; --card:#fff; --ink:#1d2433; --muted:#5f6878; --line:#e3e7ef;
+  --pri:#1b4f8f; --pri2:#2a6bb5; --pri-soft:#e8f0fb; --acc:#e07a1f; --acc-soft:#fdf0e3; --red:#d64545;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;
+  height:100dvh;display:grid;grid-template-rows:auto 1fr;overflow:hidden}
+a{color:var(--pri)}
+button{font:inherit;cursor:pointer}
+
+/* ---------- 頂部 ---------- */
+header{position:relative;overflow:hidden;color:#fff;padding:14px 20px;
+  background:linear-gradient(120deg,#123a6b,#1b4f8f 45%,#2a6bb5 75%,#1b4f8f);background-size:300% 300%;animation:bg 16s ease-in-out infinite}
+@keyframes bg{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.floaters{position:absolute;inset:0;pointer-events:none}
+.floaters span{position:absolute;bottom:-40px;color:rgba(255,255,255,.13);font-weight:700;white-space:nowrap;animation:up linear infinite}
+@keyframes up{0%{transform:translateY(0) rotate(-8deg);opacity:0}15%,85%{opacity:1}100%{transform:translateY(-180px) rotate(8deg);opacity:0}}
+.hbar{position:relative;display:flex;align-items:center;gap:16px;max-width:1280px;margin:0 auto}
+.brand{flex:1;min-width:0}
+.brand small{font-size:12px;opacity:.85;letter-spacing:.06em}
+.brand h1{font-size:22px;line-height:1.3;white-space:nowrap}
+.typing{color:#ffd29a;border-right:2px solid #ffd29a;padding-right:2px;animation:caret 1s step-end infinite}
+@keyframes caret{50%{border-color:transparent}}
+.search{position:relative;width:min(340px,40vw)}
+.search input{width:100%;padding:10px 14px 10px 36px;border-radius:999px;border:0;font-size:15px;transition:box-shadow .25s}
+.search input:focus{outline:none;box-shadow:0 0 0 4px rgba(255,210,154,.6)}
+.search::before{content:"⌕";position:absolute;left:13px;top:50%;transform:translateY(-52%);color:#8a93a5;font-size:18px}
+
+/* ---------- 主體 ---------- */
+.app{display:grid;grid-template-columns:220px 1fr;min-height:0;max-width:1280px;width:100%;margin:0 auto}
+nav{padding:16px 10px;display:flex;flex-direction:column;gap:4px;overflow-y:auto}
+nav button{display:flex;align-items:center;gap:10px;border:0;background:none;padding:10px 14px;border-radius:12px;text-align:left;color:var(--ink);font-size:15px;transition:background .2s,color .2s,transform .2s}
+nav button .i{font-size:18px;width:22px;text-align:center}
+nav button:hover{background:#fff;transform:translateX(3px)}
+nav button.on{background:var(--pri);color:#fff;box-shadow:0 6px 16px rgba(27,79,143,.28)}
+nav .cnt{margin-left:auto;font-size:12px;opacity:.7}
+.contact-mini{margin-top:auto;padding:12px 14px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line)}
+.contact-mini b{color:var(--ink)}
+
+.panel{min-height:0;overflow-y:auto;padding:18px 20px 24px;scrollbar-width:thin}
+.phead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.phead h2{font-size:21px;display:flex;align-items:center;gap:8px}
+.phead h2::before{content:"";width:5px;height:20px;border-radius:3px;background:var(--acc)}
+.phead p{color:var(--muted);font-size:14px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:13.5px;color:var(--ink);transition:.2s}
+.chip.on{background:var(--pri-soft);border-color:var(--pri);color:var(--pri);font-weight:600}
+
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.list>*{min-width:0}
+.row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;text-align:left;width:100%;
+  color:inherit;transition:transform .2s,box-shadow .2s,border-color .2s;opacity:0;transform:translateY(14px);animation:in .45s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes in{to{opacity:1;transform:none}}
+.row:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(27,79,143,.13);border-color:#bcd0ec}
+.row .ic{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--pri-soft);font-size:19px}
+.row .ic.o{background:var(--acc-soft)}
+.row .tx{flex:1;min-width:0}
+.row .tt{font-weight:600;font-size:15px;line-height:1.4}
+.row .sb{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .ar{color:#9aa3b5;transition:transform .2s}
+.row:hover .ar{transform:translateX(4px);color:var(--pri)}
+.tag{display:inline-block;white-space:nowrap;font-size:11.5px;padding:1px 8px;border-radius:999px;background:var(--pri-soft);color:var(--pri);margin-right:4px;vertical-align:1px;font-weight:500}
+.tag.o{background:var(--acc-soft);color:#a5520b}
+
+/* 首頁倒數磚 */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:16px}
+.tile{position:relative;border:0;border-radius:16px;padding:14px 16px;text-align:left;color:#fff;overflow:hidden;
+  background:linear-gradient(135deg,var(--pri),var(--pri2));opacity:0;transform:scale(.94);animation:pop .45s cubic-bezier(.2,1.2,.4,1) forwards;transition:transform .2s,box-shadow .2s}
+.tile:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 12px 26px rgba(27,79,143,.3)}
+.tile.hot{background:linear-gradient(135deg,#e07a1f,#f0a04b)}
+.tile.done{background:linear-gradient(135deg,#8a93a5,#a9b0bf)}
+@keyframes pop{to{opacity:1;transform:none}}
+.tile .d{font-size:30px;font-weight:800;line-height:1.1}
+.tile .d small{font-size:13px;font-weight:500;margin-left:3px}
+.tile .n{font-size:14px;font-weight:600;margin-top:4px}
+.tile .w{font-size:12px;opacity:.9}
+.sub{font-size:15px;font-weight:700;margin:6px 0 8px;color:var(--pri)}
+.empty{color:var(--muted);padding:20px 0}
+
+.fade{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+.hidden{display:none!important}
+.tag.end{background:#eceef3;color:#7a8394}
+.row.closed{background:#f7f8fb}
+.row.closed .ic{filter:grayscale(1);opacity:.6}
+.row.closed .tt{color:#7a8394}
+.stat{font-size:14px;font-weight:600;padding:8px 12px;border-radius:10px;background:#f3f5fa;color:var(--muted)}
+.stat.ok{background:#e6f5ee;color:#1f7a50}
+.stat.bad{background:#fdecec;color:#b83232}
+.btn.off{opacity:.5;pointer-events:none;border-color:#b9c0cc;color:#7a8394}
+.bul{padding:4px 18px 20px;font-size:14.5px;overflow-x:auto;border-top:1px solid var(--line)}
+.bul p{margin:6px 0}
+.bul table{border-collapse:collapse;width:100%;min-width:520px;font-size:13.5px;margin:8px 0}
+.bul td,.bul th{border:1px solid var(--line);padding:6px 8px;vertical-align:top}
+.bul img{max-width:100%;height:auto}
+.sync{font-size:12.5px;color:var(--muted);margin-top:12px}
+
+/* ---------- 彈跳視窗 ---------- */
+.modal{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;visibility:hidden}
+.modal.open{visibility:visible}
+.mask{position:absolute;inset:0;background:rgba(15,25,45,.55);backdrop-filter:blur(3px);opacity:0;transition:opacity .3s}
+.modal.open .mask{opacity:1}
+.box{position:relative;width:min(920px,100%);max-height:min(90dvh,880px);background:#fff;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 24px 60px rgba(0,0,0,.35);transform:scale(.85) translateY(30px);opacity:0;transition:transform .38s cubic-bezier(.2,1.3,.4,1),opacity .25s}
+.box.tall{height:min(90dvh,880px)}
+.modal.open .box{transform:none;opacity:1}
+.mbar{display:flex;align-items:center;gap:10px;padding:12px 12px 12px 18px;background:var(--pri-soft);border-bottom:1px solid var(--line)}
+.mbar .ic{font-size:22px}
+.mbar h3{flex:1;min-width:0;font-size:17px;color:var(--pri);line-height:1.35}
+.x{flex:none;border:0;background:#fff;width:36px;height:36px;border-radius:50%;font-size:17px;transition:transform .25s}
+.x:hover{transform:rotate(90deg)}
+.mbody{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column}
+.info{padding:16px 18px;display:grid;gap:10px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14.5px}
+.kv dt{color:var(--muted);white-space:nowrap}
+.note{font-size:14px;background:var(--acc-soft);padding:8px 12px;border-radius:10px}
+.desc{font-size:14.5px}
+.acts{display:flex;flex-wrap:wrap;gap:8px}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:6px;font-size:14px;text-decoration:none;padding:8px 14px;border-radius:10px;border:1px solid var(--pri);color:var(--pri);background:#fff;transition:background .2s,transform .15s}
+.btn:hover{background:var(--pri-soft)}
+.btn:active{transform:scale(.96)}
+.btn.go{background:var(--pri);color:#fff}
+.btn.go:hover{background:#143d70}
+.btn.dl{border-color:var(--acc);color:#a5520b}
+.btn.dl:hover{background:var(--acc-soft)}
+.btn.on{background:var(--pri);color:#fff}
+.rip{position:absolute;border-radius:50%;transform:scale(0);background:rgba(255,255,255,.5);animation:rip .6s linear;pointer-events:none}
+.btn:not(.go):not(.on) .rip{background:rgba(27,79,143,.22)}
+@keyframes rip{to{transform:scale(4);opacity:0}}
+.viewer{flex:1;min-height:360px;position:relative;border-top:1px solid var(--line);background:#f3f4f8}
+.viewer iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff;opacity:0;transition:opacity .4s}
+.viewer iframe.ok{opacity:1}
+.spin{position:absolute;top:50%;left:50%;width:40px;height:40px;margin:-20px;border:4px solid var(--pri-soft);border-top-color:var(--pri);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.vtabs{display:flex;gap:6px;padding:0 18px 12px;flex-wrap:wrap}
+
+/* ---------- 說明機器人 ---------- */
+.fab{position:fixed;right:20px;bottom:20px;z-index:40;width:62px;height:62px;border-radius:50%;border:0;color:#fff;font-size:30px;
+  background:linear-gradient(135deg,var(--acc),#f0a04b);box-shadow:0 10px 26px rgba(224,122,31,.45);animation:bob 3s ease-in-out infinite;transition:transform .2s}
+.fab:hover{transform:scale(1.08)}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -6px}}
+.fab-tip{position:fixed;right:92px;bottom:36px;z-index:40;background:#fff;color:var(--ink);font-size:13.5px;padding:7px 12px;border-radius:12px 12px 2px 12px;
+  box-shadow:0 6px 18px rgba(0,0,0,.15);animation:tipIn .5s 1s both;pointer-events:none}
+@keyframes tipIn{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.chat{position:fixed;right:20px;bottom:94px;z-index:45;width:min(380px,calc(100vw - 32px));height:min(560px,calc(100dvh - 120px));background:#fff;border-radius:20px;
+  box-shadow:0 20px 50px rgba(15,25,45,.3);display:flex;flex-direction:column;overflow:hidden;transform-origin:bottom right;
+  transform:scale(.6) translateY(30px);opacity:0;visibility:hidden;transition:transform .35s cubic-bezier(.2,1.3,.4,1),opacity .25s,visibility .35s}
+.chat.open{transform:none;opacity:1;visibility:visible}
+.chat-head{display:flex;align-items:center;gap:10px;padding:12px 14px;color:#fff;background:linear-gradient(120deg,#143d70,#2a6bb5)}
+.chat-head .av{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:22px}
+.chat-head b{display:block;font-size:15px}
+.chat-head small{font-size:12px;opacity:.85}
+.chat-head .x{margin-left:auto;background:rgba(255,255,255,.2);color:#fff}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#f6f8fc}
+.msg{max-width:88%;padding:9px 13px;border-radius:16px;font-size:14px;line-height:1.6;animation:msgIn .3s ease both}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg.bot{background:#fff;border:1px solid var(--line);border-top-left-radius:4px;align-self:flex-start}
+.msg.me{background:var(--pri);color:#fff;border-top-right-radius:4px;align-self:flex-end}
+.msg ul{margin:4px 0 0;padding-left:18px}
+.msg .go-item{display:flex;align-items:center;gap:6px;width:100%;margin-top:6px;padding:7px 10px;border:1px solid var(--line);border-radius:10px;background:var(--pri-soft);
+  color:var(--pri);font-size:13.5px;text-align:left;text-decoration:none;transition:background .2s,transform .2s}
+.msg .go-item:hover{background:#dbe7f8;transform:translateX(3px)}
+.msg .go-item.closed{background:#f3f4f7;color:#7a8394}
+.dots{display:inline-flex;gap:4px;padding:4px 2px}
+.dots i{width:7px;height:7px;border-radius:50%;background:#9aa3b5;animation:dot 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,80%,100%{transform:translateY(0);opacity:.5}40%{transform:translateY(-5px);opacity:1}}
+.qwrap{position:relative;border-top:1px solid var(--line);background:#fff}
+.quick{display:flex;gap:6px;overflow-x:auto;padding:8px 40px 8px 12px;scrollbar-width:thin;scroll-behavior:smooth;cursor:grab;user-select:none}
+.quick.drag{cursor:grabbing;scroll-behavior:auto}
+.quick::-webkit-scrollbar{height:4px}
+.quick::-webkit-scrollbar-thumb{background:#c9d2e0;border-radius:4px}
+.qarr{position:absolute;top:0;bottom:0;width:34px;border:0;font-size:18px;color:var(--pri);z-index:1;transition:opacity .2s}
+.qarr.l{left:0;background:linear-gradient(90deg,#fff 55%,rgba(255,255,255,0))}
+.qarr.r{right:0;background:linear-gradient(270deg,#fff 55%,rgba(255,255,255,0))}
+.qarr.off{opacity:0;pointer-events:none}
+.quick button{flex:none;border:1px solid var(--pri);background:#fff;color:var(--pri);border-radius:999px;padding:5px 11px;font-size:13px;transition:.2s}
+.quick button:hover{background:var(--pri-soft)}
+.ask{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:#fff}
+.ask input{flex:1;min-width:0;border:1px solid var(--line);border-radius:999px;padding:9px 14px;font-size:15px}
+.ask input:focus{outline:none;border-color:var(--pri);box-shadow:0 0 0 3px var(--pri-soft)}
+.ask button{flex:none;width:40px;height:40px;border:0;border-radius:50%;background:var(--pri);color:#fff;font-size:17px;transition:transform .15s}
+.ask button:active{transform:scale(.9)}
+
+/* ---------- 手機 ---------- */
+@media (max-width:760px){
+  header{padding:10px 14px}
+  .hbar{flex-wrap:wrap;gap:8px}
+  .brand h1{font-size:18px}
+  .search{width:100%}
+  .search input{padding:8px 14px 8px 34px}
+  .app{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  nav{flex-direction:row;overflow-x:auto;padding:8px 12px;gap:6px;background:#fff;border-bottom:1px solid var(--line);scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  nav button{flex:none;padding:7px 12px;font-size:14px;border-radius:999px;background:var(--bg)}
+  nav button .i{width:auto;font-size:15px}
+  nav button:hover{transform:none}
+  nav .cnt,.contact-mini{display:none}
+  .panel{padding:14px 14px 20px}
+  .phead h2{font-size:18px}
+  .list{grid-template-columns:minmax(0,1fr);gap:8px}
+  .row{padding:10px 12px}
+  .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -14px 10px;padding:0 14px}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none}
+  .tiles{grid-template-columns:1fr 1fr}
+  .tile .d{font-size:24px}
+  .modal{padding:0;align-items:flex-end}
+  .box,.box.tall{width:100%;max-height:94dvh;border-radius:18px 18px 0 0;transform:translateY(100%)}
+  .box.tall{height:94dvh}
+  .kv{grid-template-columns:1fr;gap:0}
+  .kv dd{margin-bottom:6px}
+  .fab{right:14px;bottom:14px;width:54px;height:54px;font-size:26px}
+  .fab-tip{right:76px;bottom:26px}
+  .chat{right:0;bottom:0;width:100%;height:82dvh;border-radius:20px 20px 0 0;transform-origin:bottom center}
+  .ask input{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="floaters" id="floaters" aria-hidden="true"></div>
+  <div class="hbar">
+    <div class="brand">
+      <small>崑山科技大學 通識教育中心</small>
+      <h1>外語教學組專區 <span class="typing" id="typing"></span></h1>
+    </div>
+    <label class="search"><input id="q" type="search" placeholder="搜尋：TOEIC、獎學金、免修、日文…" aria-label="搜尋"></label>
+  </div>
+</header>
+
+<div class="app">
+  <nav id="nav" aria-label="分類"></nav>
+  <main class="panel" id="panel" aria-live="polite"></main>
+</div>
+
+<button class="fab" id="fab" aria-label="開啟外語小幫手">🤖</button>
+<div class="fab-tip" id="fabTip">有問題問我！</div>
+<section class="chat" id="chat" aria-label="外語小幫手">
+  <div class="chat-head"><span class="av">🤖</span><div><b>外語小幫手</b><small>英檢、課程、競賽、獎助都可以問</small></div><button class="x" id="chatX" aria-label="關閉">✕</button></div>
+  <div class="msgs" id="msgs"></div>
+  <div class="qwrap"><button type="button" class="qarr l off" id="qL" aria-label="往左">‹</button><div class="quick" id="quick"></div><button type="button" class="qarr r" id="qR" aria-label="往右">›</button></div>
+  <div class="ask" id="askForm"><input id="askIn" placeholder="輸入問題，例如：多益怎麼報名？" autocomplete="off" enterkeyhint="send" aria-label="輸入問題"><button type="button" id="askBtn" aria-label="送出">➤</button></div>
+</section>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="mask" data-close></div>
+  <div class="box" id="box">
+    <div class="mbar"><span class="ic" id="mIc"></span><h3 id="mTitle"></h3><button class="x" data-close aria-label="關閉">✕</button></div>
+    <div class="mbody" id="mBody"></div>
+  </div>
+</div>
+
+<script>
+window.onerror = function(msg, src, line, col){
+  var p = document.getElementById("panel");
+  if (p) p.innerHTML = '<p style="color:#d64545;padding:20px">網頁載入錯誤：' + msg + '（第 ' + line + ' 行）<br>請把這段文字截圖給管理者。</p>';
+};
+</script>
+<script>
+/* =====================================================================
+   資料區：之後更新只要改這裡
+   actions 的 k：go = 主要按鈕、dl = 下載檔案、無 = 一般連結
+   連結是 Google 表單或 Google 雲端硬碟檔案時，會直接在彈跳視窗內顯示
+   ===================================================================== */
+const TERM = "115-1";
+
+/* Apps Script 網頁應用程式的網址（放在 GitHub 時用來同步學校公告）
+   重新「新增部署作業」網址會改變，要記得更新這裡；用「管理部署作業 → 新版本」則網址不變 */
+const API_URL = "https://script.google.com/macros/s/AKfycbxt7BDWwWIBQ15_ScH9ih6sa4SrFsI45zKUWF20vpP0iEvfMX6D67z46WkjD5e6KSEq/exec";
+const F = "https://my.ksu.edu.tw/file/web/CHT/DTGC000/";
+const GF = id => "https://docs.google.com/forms/d/e/" + id + "/viewform";
+const GD = id => "https://drive.google.com/file/d/" + id + "/view";
+
+const TABS = [
+  {id:"home",     i:"🏠", t:"最新活動",   d:"重要日期倒數，點選查看詳情"},
+  {id:"news",     i:"📢", t:"學校公告",   d:"自動同步通識教育中心公佈欄"},
+  {id:"exam",     i:"📝", t:"英檢報名",   d:"校內 & 校外英文檢定、證照上傳"},
+  {id:"workshop", i:"📚", t:"外語學習坊", d:"免費課後輔導・報名即日起至 10/30(五)"},
+  {id:"contest",  i:"🏆", t:"外語競賽",   d:"職場英文／日文競賽"},
+  {id:"aid",      i:"💰", t:"獎助與申請", d:"獎學金、補助、免修、學程"},
+  {id:"docs",     i:"📄", t:"法規表單",   d:"外語教學相關法規及表單下載"},
+  {id:"online",   i:"💻", t:"線上學習",   d:"校內平台與校外學習網站"},
+  {id:"contact",  i:"☎️", t:"聯絡我們",   d:"通識教育中心 外語教學組"},
+];
+
+const ITEMS = [
+  /* ---------- 英檢報名 ---------- */
+  {tab:"exam", i:"🎓", t:"大學校院英語能力測驗 CSEPT（校園團考）", tag:"校外",
+   info:[["報名","9/14(一) – 10/26(一)"],["考試","11/22(日) 下午"],["成績查詢","2026/12/14 – 12/23（預定，以官網為主）"]],
+   acts:[{t:"前往報名",u:"https://reg.lttc.org.tw/CSEPT/",k:"go"},{t:"學習資源",u:"https://www.lttc.ntu.edu.tw/tw/CSEPT_Test_formats"}]},
+  {tab:"exam", i:"💼", t:"TOEIC 多益", tag:"校外",
+   info:[["報名","每月一場（自行報名）"],["考試／成績","自行查詢"]],
+   acts:[{t:"多益官網",u:"https://www.toeic.com.tw/",k:"go"},{t:"學習資源",u:"https://www.toeic.com.tw/sample-test/toeic-listening-reading/sample01.html"}]},
+  {tab:"exam", i:"🇹🇼", t:"全民英檢 GEPT", tag:"校外",
+   info:[["報名","一年 2–3 次（自行報名）"],["考試／成績","自行查詢"]],
+   acts:[{t:"全民英檢官網",u:"https://www.gept.org.tw/",k:"go"},{t:"學習資源",u:"https://bit.ly/3xTV6IF"}]},
+  {tab:"exam", i:"🌐", t:"劍橋領思 Linguaskill", tag:"校外",
+   info:[["報名","每月二場（自行報名）"],["考試／成績","自行查詢"]], note:"輸入校園專案代碼「KSU」可享優惠報考價格",
+   acts:[{t:"領思官網",u:"https://www.lsenglish.com.tw/test.php",k:"go"},{t:"學習資源",u:"https://www.lsenglish.com.tw/preparations.php"}]},
+  {tab:"exam", i:"🏫", t:"崑山（校內）英檢", tag:"校內", hot:true,
+   info:[["資格","限大四以上、曾考過一次校外英檢未通過者"],["報名","9/14(一) – 11/13(五) 或額滿"],["考試","12/5(六)"],["成績","立即公告"]],
+   acts:[{t:"前往報名",u:"https://www.beclass.com/rid=305282f6aa35ab0a90c8",k:"go"},{t:"登入及題庫說明",u:"https://canva.link/115ksuengtest"}]},
+  {tab:"exam", i:"📤", t:"英語證照上傳說明", tag:"必看",
+   desc:"自 106-1 學期起，校外英語檢定成績單或證書<b>不論是否通過</b>，皆須於兩週內上傳至 IR 系統。<br>路徑：登入 IR 系統 → 職涯發展 → 英文證照 → 學生成績查詢",
+   note:"未上傳成績單者，無法選修「外語能力檢定」課程。",
+   acts:[{t:"前往 IR 系統",u:"https://ir.ksu.edu.tw/cca/public/auth/index",k:"go"},{t:"上傳說明 PDF",u:"https://my.ksu.edu.tw/file/bbcode/w3Pages/58945/4f5294ac-7fc7-4404-8c13-23b71be474b3/英文證照上傳說明(新).pdf",k:"dl"}]},
+
+  /* ---------- 外語學習坊 ---------- */
+  {tab:"workshop", i:"✍️", t:"第二梯課程報名表", tag:"報名中", hot:true,
+   desc:"第一梯各班仍有名額者，請直接到教室找老師報名。具經濟不利背景學生可申請助學補助金。",
+   note:"出席 8 成以上核發修業證明，可作為「英文聽讀技巧」「外語選讀（職場英文／日文）」學習成果佐證。",
+   acts:[{t:"填寫報名表",u:GF("1FAIpQLSfmSHLpkILzjlvOJuAHEy6lUzwf5bXRrB8kfO4aLIZ4PH1DsQ"),k:"go"},{t:"原始公告",u:"https://web.ksu.edu.tw/DTGC000/bulletin/detail/13424"}]},
+  {tab:"workshop", i:"🎓", t:"CSEPT 通用英文證照輔導課程", tag:"0.4 學分",
+   info:[["閱讀班","10/1 起共 4 週／8 小時"],["聽力班","10/29 起共 4 週／8 小時（10/28 公告名單）"],["時間","每週四 18:00–19:50"],["教室","教學研究大樓 T0409"]],
+   acts:[{t:"閱讀班名單",u:GD("1ZGSZi5AJOGZ_N6Ab4NmJQXyHvutc8rYz"),k:"go"}]},
+  {tab:"workshop", i:"💼", t:"TOEIC 商用英文證照課程", tag:"0.75 學分",
+   info:[["閱讀班","10/1 起共 5 週／15 小時"],["聽力班","11/5 起共 5 週／15 小時（11/4 公告名單）"],["時間","每週四 18:00–20:50"],["教室","教學研究大樓 T0402"]],
+   acts:[{t:"閱讀班名單",u:GD("1ozuDg5AGnk-RTEttMVbz2iZcD8_LAn2C"),k:"go"}]},
+  {tab:"workshop", i:"🗣️", t:"【發音／聽力】強化課程", tag:"0.5 學分",
+   info:[["日期","10/5 起共 5 週／10 小時"],["時間","每週一 18:00–20:50"],["教室","教學研究大樓 10F-R1002"]],
+   acts:[{t:"課程名單",u:GD("1K7F7DM_e4dbnUgv70vOzz0iL4Iv_vkGK"),k:"go"}]},
+  {tab:"workshop", i:"📖", t:"【閱讀／詞彙】強化課程", tag:"0.5 學分",
+   info:[["日期","10/6 起共 5 週／10 小時"],["時間","每週二 18:00–20:50"],["教室","教學研究大樓 10F-R1002"]],
+   acts:[{t:"課程名單",u:GD("1tuyBpT2W5biZ7Wjy7jU66c-DqPcEuc6Y"),k:"go"}]},
+  {tab:"workshop", i:"🇯🇵", t:"基礎日語強化課程", tag:"第二外語",
+   info:[["日期","10/6 起共 10 週／20 小時"],["時間","每週二 15:30–17:20"],["教室","教學研究大樓 T0202"]],
+   acts:[{t:"課程名單",u:GD("1k-zclsudjEevKy9COyamtB0v5Ia1izE2"),k:"go"}]},
+
+  /* ---------- 外語競賽 ---------- */
+  {tab:"contest", i:"🎤", t:"英文朗讀競賽", info:[["收件截止","即日起至 11/18(三) 中午"]],
+   acts:[{t:"比賽辦法",u:GD("1tQ5O4rn7QzqGFIXVeTCniKQW2qSMaSos")},{t:"點我報名",u:GF("1FAIpQLSdDI-e-J18vKp05nXlFnWXHLej0HxSqcB7GUcK__wR0BXZ7Tg"),k:"go"}]},
+  {tab:"contest", i:"📄", t:"職場新秀－英文履歷達人競賽", info:[["收件截止","即日起至 11/18(三)"]],
+   acts:[{t:"比賽辦法",u:GD("1IMhmfX1aMJ6ojh51doLCX2cax_UDca9b")},{t:"點我報名",u:GF("1FAIpQLScswC8ZTtcW1t0vFqDdS-IoH0cIhn6tJiTN0XphEdv43Z3n0Q"),k:"go"}]},
+  {tab:"contest", i:"🎬", t:"職場英文 1 分鐘自我介紹影片競賽", info:[["收件截止","即日起至 11/18(三)"]],
+   acts:[{t:"比賽辦法",u:GD("1ubTBxkM6UlW_4gH24ZFAvH3C18P_1idL")},{t:"點我報名",u:GF("1FAIpQLScotq9Nxn0gEuYTPcep3ELVjHsBqBlrMwiiPLbMnHa1BuOk1w"),k:"go"}]},
+  {tab:"contest", i:"🇯🇵", t:"1 分鐘日文自我介紹影片競賽", info:[["收件截止","即日起至 11/18(三)"]],
+   acts:[{t:"比賽辦法",u:GD("1iEiFPmGJitLSyHc2ThSIWdxL1kCIguJ3")},{t:"點我報名",u:GF("1FAIpQLSf5u-6wLmo0EQHnlyZAJ1G8xpxy6j_OLpv9CeT-ljQZwDAMJQ"),k:"go"}]},
+  {tab:"contest", i:"🧠", t:"英文能力競賽", hot:true, info:[["比賽日期","11/4(三) 13:00–17:00"],["地點","教學研究大樓 10F-R1002"],["對象","本校全日部在學生"]],
+   acts:[{t:"點我報名",u:GF("1FAIpQLSffQEPbVzXP0JedmXVA1EVcNTpVS_hniry81awg3Jf-6C6lKA"),k:"go"}]},
+
+  /* ---------- 獎助與申請 ---------- */
+  {tab:"aid", i:"🤝", t:"經濟不利學生「語文增能輔導」獎助金", tag:"截止 11/27", hot:true,
+   info:[["登記","即日起至 9/24(四) 中午（結果 9/29 email 通知）"],["申請截止","11/27(五) 中午 12:00，檢附申請表及佐證"]],
+   desc:"<b>資格：</b>具學雜費減免資格（低收／中低收、身心障礙學生及子女、特殊境遇家庭）、弱勢助學計畫補助資格、原住民學生、家庭突遭變故、懷孕／撫育三歲以下子女、青（少）年照顧者、其他經學校認列之經濟不利學生。",
+   note:"登記者仍須自行報名並完成課程及活動要求；補助金額以教育部核定為準。",
+   acts:[{t:"活動及課程報名網站",u:"https://www.beclass.com/rid=305282f6aa34d4dd5c25",k:"go"},{t:"審核表及申請書",u:"https://my.ksu.edu.tw/file/bbcode/w3BulletinBoard/12039/1d33ae81-5015-4f75-a99b-373788bee126/115-1語文增能 審核表及申請書.pdf",k:"dl"}]},
+  {tab:"aid", i:"🏅", t:"外語能力成績優異學生獎學金",
+   acts:[{t:"實施要點",u:F+"84ab39ad-30cd-48d1-aecb-718f71b8f1db.pdf",k:"dl"},{t:"申請表（中英版）",u:F+"842a484f-e07d-46a7-991d-0009e7c1fb37.pdf",k:"dl"},{t:"申請表（中越版）",u:F+"35b2653a-3991-4072-a615-9b7880fef7b6.pdf",k:"dl"}]},
+  {tab:"aid", i:"💵", t:"英文能力檢定報名費補助",
+   acts:[{t:"實施要點（114.3.19 通過）",u:F+"7febe28b-a2e9-47d0-84f2-2a3a3f652623.pdf",k:"dl"}]},
+  {tab:"aid", i:"✅", t:"免修通識外語／核心通識英文",
+   acts:[{t:"免修作業要點（1150119）",u:F+"30c7f5c8-5725-4895-880f-5145bd86f881.pdf",k:"dl"},{t:"免修申請單（中/English）",u:F+"76201856-b153-4651-8974-c7f294a50273.pdf",k:"dl"}]},
+  {tab:"aid", i:"✈️", t:"國際移動力菁英學分學程",
+   acts:[{t:"實施要點（114-1 修）",u:F+"d9c49920-75b1-4b42-972d-52e3dfca73e3.pdf",k:"dl"},{t:"申請表單",u:F+"291693fd-7a13-43c1-ba84-57c9badd90b8.pdf",k:"dl"}]},
+
+  /* ---------- 法規表單 ---------- */
+  ...[
+    ["學生外語能力檢定實施辦法（1132）","c83b5619-0395-4096-8758-ac3f2e9f841b","法規"],
+    ["外語能力檢定測驗認列機構（1132）","734fb303-c2f9-4bdb-954d-f09ac335cfc2","法規"],
+    ["外語能力成績優異學生獎學金實施要點","84ab39ad-30cd-48d1-aecb-718f71b8f1db","法規"],
+    ["學生【免修】通識外語課程作業要點","30c7f5c8-5725-4895-880f-5145bd86f881","法規"],
+    ["英文能力檢定報名費補助實施要點","7febe28b-a2e9-47d0-84f2-2a3a3f652623","法規"],
+    ["國際移動力菁英學分學程實施要點","d9c49920-75b1-4b42-972d-52e3dfca73e3","法規"],
+    ["學生語言證照考試輔導實施計畫書","bb93c7d7-fc8c-4835-a667-22337ed385f0","法規"],
+    ["外語文類組課程委員會設置辦法","797739ec-7e8b-43e0-aee2-473825e9489a","法規"],
+    ["高中生預修第二外語課程委員會設置要點","3a769de0-40c4-4d52-86ff-a213e073c509","法規"],
+    ["外語成績優異獎學金申請表（中英版）","842a484f-e07d-46a7-991d-0009e7c1fb37","表單"],
+    ["外語成績優異獎學金申請表（中越版）","35b2653a-3991-4072-a615-9b7880fef7b6","表單"],
+    ["國際移動力菁英學分學程申請表","291693fd-7a13-43c1-ba84-57c9badd90b8","表單"],
+    ["學生【免修】核心通識英文申請單","76201856-b153-4651-8974-c7f294a50273","表單"],
+  ].map(([t,id,tag]) => ({tab:"docs", i: tag==="法規"?"⚖️":"🗂️", t, tag, sub:"PDF 檔案", acts:[{t:"下載 PDF",u:F+id+".pdf",k:"dl"}]})),
+
+  /* ---------- 聯絡 ---------- */
+  {tab:"contact", i:"☎️", t:"通識教育中心 外語教學組", sub:"06-205-3210 分機 313 轉 22–23",
+   info:[["電話","06-205-3210 分機 313 轉 22–23"],["Email","lc@mail.ksu.edu.tw"],["地址","710303 台南市永康區崑大路 195 號"]],
+   acts:[{t:"寄信給我們",u:"mailto:lc@mail.ksu.edu.tw",k:"go"}]},
+  {tab:"contact", i:"📅", t:`${TERM} 外語教學／活動行事曆`, acts:[{t:"開啟行事曆",u:"https://sites.google.com/view/gecalendar1142/ge_calendar_1151",k:"go"}]},
+  {tab:"contact", i:"📢", t:"通識教育中心 最新消息", acts:[{t:"前往公佈欄",u:"https://web.ksu.edu.tw/DTGC000/bulletin/",k:"go"}]},
+];
+
+/* 線上學習資源 */
+const ONLINE = {
+  "校內平台":[
+    ["崑山科大數位學習網（圖書館）","http://www.lib.ksu.edu.tw/",""],
+    ["Tense Buster 文法 & Clear Pronunciation 發音","http://ad2.winhoe.com/ksu/",""],
+    ["空中英語教室資源網","https://tccs4.webenglish.tv/login.jsp","帳密：圖書館登入密碼（學號／身分證號碼全）；校外需設定 IP"],
+    ["Live ABC 學習網及英檢網","http://db.lib.ksu.edu.tw:8900/login/login.php","帳密：圖書館登入密碼（學號／身分證號碼全，英文字母大寫）"],
+    ["Easy Test 英檢網 & 英日語學習網","https://easytest.lib.ksu.edu.tw/","帳密：My KSU 帳密"],
+    ["MyET 我的口說英語家教","https://tw.myet.com/MyETWeb/Download.aspx","⚠️ 目前系統維修，本學期暫停使用"],
+    ["Funday","https://hunteq.com/sso/funday_taebdc",""],
+    ["圖書館校外遠端連線（IP 設定）","http://www.lib.ksu.edu.tw/%E5%8F%83%E8%80%83%E8%AB%AE%E8%A9%A2/%E6%A0%A1%E5%A4%96%E9%81%A0%E7%AB%AF%E9%80%A3%E7%B7%9A/","在校外使用校內平台前請先設定"],
+  ],
+  "英語學習":[["CoolEnglish 教育部酷英網","https://www.coolenglish.edu.tw/"],["BBC Learning English","https://www.bbc.co.uk/learningenglish/english/features/the-english-we-speak"],["British Council LearnEnglish","https://learnenglish.britishcouncil.org/"]],
+  "字典":[["Yahoo 字典","https://tw.dictionary.yahoo.com/"],["Internet Picture Dictionary","https://www.pdictionary.com/"],["劍橋線上字典","https://dictionary.cambridge.org/"],["Longman Dictionary","https://www.ldoceonline.com/"],["Oxford Collocation（搭配詞）","https://oxforddictionary.so8848.com/search"],["COCA 美國現代英文語料庫","https://www.english-corpora.org/coca/"],["WordHippo","https://www.wordhippo.com/"]],
+  "閱讀":[["Tumble Books","https://www.tumblebooklibrary.com/home.aspx"],["VOA Learning English","https://learningenglish.voanews.com/"],["Reading in English","https://www.manythings.org/e/reading.html"],["English e-Reader","https://english-e-reader.net/"]],
+  "發音聽力":[["BBC Pronunciation Tips","https://www.bbc.co.uk/worldservice/learningenglish/multimedia/pron/"],["Sounds of Speech","https://soundsofspeech.uiowa.edu/resources/english/english.html"],["English Club: Pronunciation","https://www.englishclub.com/pronunciation/"],["English Central","https://www.englishcentral.com/"],["Focus English","https://www.focusenglish.com/index.html"],["ELLLO English Listening","https://www.elllo.org/"],["VoiceTube 看影片學英文","https://voicetube.tw/"],["Forvo 發音字典","https://forvo.com/"],["YouGlish","https://youglish.com/"]],
+  "文法寫作":[["動感英文法","http://www.etweb.fju.edu.tw/tracy/highschool/"],["Purdue Online Writing Lab","https://owl.english.purdue.edu/"],["履歷範本大全","https://www.resumetemplates.org/"],["余綺芳英文寫作教室","https://www.iwriteonline.tw/"]],
+  "文化":[["小笨霖英語筆記本","http://cc.edutw.net/klee/notebook/index.html"],["聯合國志工服務 UNV","https://www.unv.org/"],["History.com 美國歷史","https://www.history.com/topics"]],
+  "課程演講":[["edX","https://www.edx.org/"],["MyOOPS 開放式課程","http://www.myoops.org/"],["Coursera","https://zh-tw.coursera.org/"],["TED","https://www.ted.com/"]],
+  "日語":[["ちまたの日本語 Real world","https://www.ajalt.org/rwj/"],["オンライン日本語學習","https://study.u-biq.org/"],["福娘童話集","https://hukumusume.com/douwa"],["NHK WORLD Japanese Lessons","https://www.nhk.or.jp/lesson/chinese/"]],
+  "東南亞語":[["東南亞語言磨課師 MOOCs","https://supr.link/WDVqq"]],
+};
+Object.entries(ONLINE).forEach(([g, arr]) => arr.forEach(([t,u,n]) =>
+  ITEMS.push({tab:"online", grp:g, i: g==="校內平台"?"🏫":g==="日語"?"🇯🇵":"🔗", t, sub: n || new URL(u).hostname.replace("www.",""), note:n||"", acts:[{t:"前往網站",u,k:"go"}]})));
+
+/* 對應的學校公告編號（公告網址最後的數字）
+   學校公告下架或超過結束日期 → 網頁自動顯示「已截止」，報名按鈕停用 */
+const BID = {exam:"12744", workshop:"13424", contest:"12042"};
+ITEMS.forEach(it => { if (BID[it.tab] && it.t !== "英語證照上傳說明") it.bid = BID[it.tab]; });
+ITEMS.find(i => i.t.indexOf("語文增能") >= 0).bid = "12039";
+
+/* 「學校公告」分頁：標題含這些字，或聯絡信箱是外語組的公告，算外語相關 */
+const LANG_WORDS = /英|外語|日[文語]|語文|TOEIC|多益|CSEPT|GEPT|Linguaskill|檢定|證照/i;
+const LANG_EMAIL = "lc@mail.ksu.edu.tw";
+
+/* 首頁倒數（日期格式 YYYY-MM-DD） */
+const DEADLINES = [
+  {d:"2026-10-26", n:"CSEPT 團考報名截止", ref:"大學校院英語能力測驗 CSEPT（校園團考）"},
+  {d:"2026-10-30", n:"外語學習坊報名截止", ref:"第二梯課程報名表"},
+  {d:"2026-11-04", n:"英文能力競賽", ref:"英文能力競賽"},
+  {d:"2026-11-13", n:"校內英檢報名截止", ref:"崑山（校內）英檢"},
+  {d:"2026-11-18", n:"外語競賽收件截止", ref:"英文朗讀競賽"},
+  {d:"2026-11-22", n:"CSEPT 考試", ref:"大學校院英語能力測驗 CSEPT（校園團考）"},
+  {d:"2026-11-27", n:"語文增能獎助金申請截止", ref:"經濟不利學生「語文增能輔導」獎助金"},
+  {d:"2026-12-05", n:"校內英檢考試", ref:"崑山（校內）英檢"},
+];
+
+/* ===================================================================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ITEM_ID = new Map(ITEMS.map((it, n) => [it, n]));
+
+/* 可在視窗內顯示的連結：Google 雲端檔案、Google 表單 */
+function embedUrl(u){
+  let m = u.match(/drive\.google\.com\/file\/d\/([^/?#]+)/);
+  if (m) return "https://drive.google.com/file/d/" + m[1] + "/preview";
+  if (/docs\.google\.com\/forms\/.+\/viewform/.test(u)) return u + (u.includes("?") ? "&" : "?") + "embedded=true";
+  return null;
+}
+
+/* ---------- 側欄 ---------- */
+let cur = "home", grp = "校內平台";
+$("#nav").innerHTML = TABS.map(t => {
+  const c = ITEMS.filter(i => i.tab === t.id).length;
+  return `<button data-tab="${t.id}"><span class="i">${t.i}</span>${t.t}${c ? `<span class="cnt">${c}</span>` : ""}</button>`;
+}).join("") + `<div class="contact-mini"><b>外語教學組</b><br>06-205-3210 #313 轉 22–23<br>lc@mail.ksu.edu.tw</div>`;
+$("#nav").addEventListener("click", e => { const b = e.target.closest("button"); if (b) { $("#q").value = ""; show(b.dataset.tab); } });
+
+function rowHtml(it, n){
+  const ic = it.hot || it.k === "o" ? "ic o" : "ic";
+  const sub = it.sub || (it.info ? it.info.map(x => x[1]).slice(0,2).join("｜") : it.acts.map(a => a.t).join("・"));
+  const st = it.bid ? statusOf(it.bid) : null, closed = st && st.closed;
+  const tag = closed ? `<span class="tag end">已截止</span>` : it.tag ? `<span class="tag ${it.hot ? "o" : ""}">${esc(it.tag)}</span>` : "";
+  return `<button class="row${closed ? " closed" : ""}" data-id="${ITEM_ID.get(it)}" style="animation-delay:${Math.min(n,12)*40}ms">
+    <span class="${ic}">${it.i}</span><span class="tx"><span class="tt">${tag}${esc(it.t)}</span><span class="sb" style="display:block">${esc(sub)}</span></span><span class="ar">›</span></button>`;
+}
+
+function show(tab){
+  cur = tab;
+  document.querySelectorAll("#nav button").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
+  const on = $(`#nav button[data-tab="${tab}"]`); on && on.scrollIntoView({block:"nearest", inline:"center", behavior:"smooth"});
+  const T = TABS.find(t => t.id === tab);
+  let h = `<div class="phead"><h2>${T.t}</h2><p>${T.d}</p></div>`;
+  if (tab === "home") {
+    const today = new Date(); today.setHours(0,0,0,0);
+    h += `<div class="tiles">` + DEADLINES.map((x, n) => {
+      const days = Math.round((new Date(x.d + "T00:00:00") - today) / 864e5);
+      const id = ITEMS.findIndex(i => i.t === x.ref);
+      const st = id >= 0 && ITEMS[id].bid ? statusOf(ITEMS[id].bid) : null;
+      const off = days < 0 || (st && st.closed);
+      const cls = off ? "done" : days <= 7 ? "hot" : "";
+      const big = off ? (days < 0 ? "已結束" : "已截止") : days === 0 ? "今天" : days + "<small>天</small>";
+      const md = x.d.slice(5).replace("-", "/");
+      return `<button class="tile ${cls}" data-id="${id}" style="animation-delay:${n*50}ms"><div class="d">${big}</div><div class="n">${esc(x.n)}</div><div class="w">${md}</div></button>`;
+    }).join("") + `</div><div class="sub">快速入口</div><div class="list">` +
+      ITEMS.filter(i => i.hot).map(rowHtml).join("") + `</div>`;
+  } else if (tab === "news") {
+    h += newsHtml();
+  } else if (tab === "online") {
+    h += `<div class="chips">` + Object.keys(ONLINE).map(g => `<button class="chip ${g===grp?"on":""}" data-grp="${g}">${g}</button>`).join("") + `</div>`;
+    h += `<div class="list">` + ITEMS.filter(i => i.tab === "online" && i.grp === grp).map(rowHtml).join("") + `</div>`;
+  } else {
+    h += `<div class="list">` + ITEMS.filter(i => i.tab === tab).map(rowHtml).join("") + `</div>`;
+  }
+  const p = $("#panel"); p.innerHTML = h; p.scrollTop = 0;
+  p.classList.remove("fade"); void p.offsetWidth; p.classList.add("fade");
+}
+
+$("#panel").addEventListener("click", e => {
+  const c = e.target.closest(".chip"); if (c) { if (c.dataset.all) { newsAll = c.dataset.all === "1"; show("news"); } else { grp = c.dataset.grp; show("online"); } return; }
+  const nb = e.target.closest("[data-bul]"); if (nb) { openBulletin(nb.dataset.bul); return; }
+  const r = e.target.closest("[data-id]"); if (r && r.dataset.id >= 0) openItem(ITEMS[r.dataset.id]);
+});
+
+/* ---------- 搜尋 ---------- */
+$("#q").addEventListener("input", e => {
+  const q = e.target.value.trim().toLowerCase();
+  if (!q) return show(cur);
+  const hits = ITEMS.filter(i => [i.t, i.sub, i.tag, i.desc, i.note, i.grp, ...(i.info||[]).flat(), ...i.acts.map(a=>a.t)].join(" ").toLowerCase().includes(q));
+  document.querySelectorAll("#nav button").forEach(b => b.classList.remove("on"));
+  $("#panel").innerHTML = `<div class="phead"><h2>搜尋結果</h2><p>「${esc(q)}」共 ${hits.length} 筆</p></div>` +
+    (hits.length ? `<div class="list">${hits.map(rowHtml).join("")}</div>` : `<p class="empty">找不到符合的項目，換個關鍵字試試。</p>`);
+});
+
+/* ---------- 彈跳視窗 ---------- */
+const modal = $("#modal"), box = $("#box"), body = $("#mBody");
+function openItem(it){
+  $("#mIc").textContent = it.i;
+  $("#mTitle").textContent = it.t;
+  const kv = it.info ? `<dl class="kv">${it.info.map(([k,v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>` : "";
+  const embeds = it.acts.filter(a => embedUrl(a.u));
+  const st = it.bid ? statusOf(it.bid) : null, closed = st && st.closed;
+  const stLine = !it.bid ? "" : !st ? (CAN_SYNC && !NEWS_ERR ? `<div class="stat">⏳ 正在同步學校公告…</div>` : "")
+    : closed ? `<div class="stat bad">⛔ 學校公告已截止，報名已關閉</div>`
+    : `<div class="stat ok">✅ 開放中（公告至 ${esc(st.end)}）</div>`;
+  const bulBtn = it.bid && CAN_SYNC ? `<button class="btn" data-bul="${it.bid}">📢 查看學校公告</button>` : "";
+  const btns = bulBtn + it.acts.map((a, n) => {
+    if (closed && a.k === "go") return `<span class="btn off">🔒 ${esc(a.t)}（已截止）</span>`;
+    const em = embedUrl(a.u);
+    const ext = a.u.startsWith("mailto:") ? "" : ` target="_blank" rel="noopener"`;
+    if (em) return `<button class="btn ${a.k==="go"?"":""}" data-view="${n}">👁 ${esc(a.t)}</button>`;
+    return `<a class="btn ${a.k||""}" href="${encodeURI(a.u)}"${ext}>${a.k==="dl"?"⬇":"↗"} ${esc(a.t)}</a>`;
+  }).join("");
+  const extra = embeds.length ? `<a class="btn" id="vOpen" href="#" target="_blank" rel="noopener" style="margin-left:auto">↗ 新分頁開啟</a>` : "";
+  body.innerHTML = `<div class="info">${stLine}${kv}${it.desc ? `<div class="desc">${it.desc}</div>` : ""}${it.note ? `<div class="note">💡 ${esc(it.note)}</div>` : ""}
+    <div class="acts">${btns}${extra}</div>${embeds.length ? `<small style="color:var(--muted)">若下方內容無法顯示，請按「↗ 新分頁開啟」。</small>` : ""}</div>` +
+    (embeds.length ? `<div class="viewer"><div class="spin"></div><iframe title="內容預覽" allow="fullscreen"></iframe></div>` : "");
+  box.classList.toggle("tall", embeds.length > 0);
+  if (embeds.length) {
+    const first = it.acts.findIndex(a => a.k === "go" && embedUrl(a.u));
+    view(it, first >= 0 ? first : it.acts.indexOf(embeds[0]));
+  }
+  body.onclick = e => {
+    const bb = e.target.closest("[data-bul]"); if (bb) return openBulletin(bb.dataset.bul, it);
+    const b = e.target.closest("[data-view]"); if (b) view(it, +b.dataset.view);
+  };
+  modal.classList.add("open");
+}
+function view(it, n){
+  const a = it.acts[n], f = body.querySelector("iframe"), sp = body.querySelector(".spin");
+  body.querySelectorAll("[data-view]").forEach(b => b.classList.toggle("on", +b.dataset.view === n));
+  $("#vOpen").href = a.u;
+  f.classList.remove("ok"); sp.style.display = "block";
+  f.onload = () => { f.classList.add("ok"); sp.style.display = "none"; };
+  f.src = embedUrl(a.u);
+}
+function closeModal(){ modal.classList.remove("open"); setTimeout(() => { if (!modal.classList.contains("open")) body.innerHTML = ""; }, 350); }
+modal.addEventListener("click", e => { if (e.target.closest("[data-close]")) closeModal(); });
+addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+/* ---------- 與學校公告同步（需部署在 Apps Script） ---------- */
+const HAS_GAS = typeof google !== "undefined" && google.script && google.script.run;
+const CAN_SYNC = HAS_GAS || !!API_URL;
+/* 向 Apps Script 要資料：在 Apps Script 裡用 google.script.run，放在 GitHub 等其他網站則用網址 */
+function callApi(fn, arg){
+  if (HAS_GAS) return new Promise((ok, no) => {
+    const r = google.script.run.withSuccessHandler(ok).withFailureHandler(no);
+    arg === undefined ? r[fn]() : r[fn](arg);
+  });
+  if (!API_URL) return Promise.reject(new Error("尚未設定 API_URL"));
+  const url = API_URL + "?action=" + (fn === "getBulletins" ? "list" : "detail&id=" + encodeURIComponent(arg));
+  return fetch(url).then(r => r.json()).then(d => { if (d && d.error) throw new Error(d.error); return d; });
+}
+const KSU = "https://web.ksu.edu.tw";
+let NEWS = null, NEWS_ERR = null, newsAll = false;
+
+function endOf(s){ return new Date(String(s).slice(0, 10).split("/").join("-") + "T23:59:59+08:00"); }
+function ymd(s){ return String(s).slice(0, 10).split("-").join("/"); }
+function statusOf(bid){
+  if (!NEWS) return null;
+  const b = NEWS.list.find(x => x.id === String(bid));
+  if (!b) return {closed:true};
+  return {closed: endOf(b.end) < new Date(), end: ymd(b.end), b};
+}
+
+function newsHtml(){
+  if (!CAN_SYNC) return '<p class="empty">「學校公告」需要設定 API_URL（Apps Script 網址）後才會自動同步。</p>';
+  if (NEWS_ERR) return '<p class="empty">暫時無法連線學校網站：' + esc(NEWS_ERR) + '</p>';
+  if (!NEWS) return '<p class="empty">⏳ 正在同步學校公告…</p>';
+  const list = NEWS.list.filter(b => newsAll || b.lang);
+  let h = '<div class="chips"><button class="chip' + (newsAll ? "" : " on") + '" data-all="0">外語相關</button>' +
+          '<button class="chip' + (newsAll ? " on" : "") + '" data-all="1">全部公告</button></div><div class="list">';
+  h += list.map((b, n) => {
+    const closed = endOf(b.end) < new Date();
+    return '<button class="row' + (closed ? " closed" : "") + '" data-bul="' + b.id + '" style="animation-delay:' + Math.min(n, 12) * 40 + 'ms">' +
+      '<span class="ic o">📢</span><span class="tx"><span class="tt">' +
+      (closed ? '<span class="tag end">已截止</span>' : '<span class="tag o">開放中</span>') + esc(b.title) + '</span>' +
+      '<span class="sb" style="display:block">公告期間 ' + esc(ymd(b.start)) + ' – ' + esc(ymd(b.end)) + '</span></span><span class="ar">›</span></button>';
+  }).join("") + '</div>';
+  if (!list.length) h += '<p class="empty">目前沒有外語相關公告。</p>';
+  return h + '<p class="sync">最後同步：' + new Date(NEWS.time).toLocaleString("zh-TW") + '（每 10 分鐘更新）</p>';
+}
+
+/* 公告內文清理：移除程式碼、補完整網址、連結開新分頁 */
+function cleanHtml(html){
+  const d = new DOMParser().parseFromString(html || "", "text/html");
+  d.querySelectorAll("script,style,iframe,object,embed,form,link,meta").forEach(e => e.remove());
+  d.querySelectorAll("*").forEach(e => [...e.attributes].forEach(a => { if (/^on/i.test(a.name)) e.removeAttribute(a.name); }));
+  d.querySelectorAll("a").forEach(a => {
+    const h = a.getAttribute("href") || "";
+    if (/^\s*javascript:/i.test(h)) a.removeAttribute("href");
+    else if (h.charAt(0) === "/") a.setAttribute("href", KSU + h);
+    a.target = "_blank"; a.rel = "noopener";
+  });
+  d.querySelectorAll("img").forEach(i => { const s = i.getAttribute("src") || ""; if (s.charAt(0) === "/") i.setAttribute("src", KSU + s); });
+  return d.body.innerHTML;
+}
+
+function openBulletin(id, backItem){
+  const b0 = NEWS && NEWS.list.find(x => x.id === String(id));
+  $("#mIc").textContent = "📢";
+  $("#mTitle").textContent = b0 ? b0.title : "學校公告";
+  box.classList.add("tall");
+  body.innerHTML = '<div class="info"><div class="stat">⏳ 正在載入學校公告…</div></div>';
+  modal.classList.add("open");
+  callApi("getBulletin", String(id))
+    .then(b => renderBulletin(b, id, backItem))
+    .catch(e => { body.innerHTML = '<div class="info"><div class="stat bad">無法載入公告：' + esc(e.message || e) + '</div>' + srcBtns(id, backItem) + '</div>'; bindBul(backItem); });
+}
+function srcBtns(id, backItem){
+  return '<div class="acts">' + (backItem ? '<button class="btn" id="bBack">← 返回</button>' : "") +
+    '<button class="btn hidden" id="vBack">← 回到公告</button>' +
+    '<a class="btn" target="_blank" rel="noopener" href="' + KSU + '/DTGC000/bulletin/detail/' + id + '">↗ 學校網站原公告</a></div>';
+}
+function renderBulletin(b, id, backItem){
+  if (!b || b.closed) {
+    body.innerHTML = '<div class="info"><div class="stat bad">⛔ 這則公告已關閉或下架（已截止）</div>' + srcBtns(id, backItem) + '</div>';
+    return bindBul(backItem);
+  }
+  const closed = endOf(b.end) < new Date();
+  $("#mTitle").textContent = b.title;
+  body.innerHTML = '<div class="info">' +
+    (closed ? '<div class="stat bad">⛔ 公告已截止（' + esc(ymd(b.end)) + '）</div>' : '<div class="stat ok">✅ 開放中（公告至 ' + esc(ymd(b.end)) + '）</div>') +
+    '<dl class="kv"><dt>公告期間</dt><dd>' + esc(ymd(b.start)) + ' – ' + esc(ymd(b.end)) + '</dd>' +
+    '<dt>聯絡人</dt><dd>' + esc(b.contact || "") + (b.email ? "｜" + esc(b.email) : "") + '</dd></dl>' +
+    srcBtns(id, backItem) + '</div>' +
+    '<div class="bul" id="bul">' + cleanHtml(b.html) + '</div>' +
+    '<div class="viewer hidden" id="bView"><div class="spin"></div><iframe title="內容預覽" allow="fullscreen"></iframe></div>';
+  bindBul(backItem);
+}
+function bindBul(backItem){
+  body.onclick = e => {
+    if (e.target.closest("#bBack")) return openItem(backItem);
+    if (e.target.closest("#vBack")) { $("#bView").classList.add("hidden"); $("#bul").classList.remove("hidden"); $("#vBack").classList.add("hidden"); return; }
+    const a = e.target.closest("#bul a[href]"); if (!a) return;
+    const em = embedUrl(a.href); if (!em) return;          // 一般連結：開新分頁
+    e.preventDefault();                                     // 表單／雲端檔：在視窗內顯示
+    const v = $("#bView"), f = v.querySelector("iframe"), sp = v.querySelector(".spin");
+    $("#bul").classList.add("hidden"); v.classList.remove("hidden"); $("#vBack").classList.remove("hidden");
+    f.classList.remove("ok"); sp.style.display = "block";
+    f.onload = () => { f.classList.add("ok"); sp.style.display = "none"; };
+    f.src = em;
+  };
+}
+function refresh(){ if (!$("#q").value.trim()) show(cur); }
+
+/* =====================================================================
+   說明機器人（關鍵字問答）
+   新增問答：在 FAQ 加一筆 {k:[關鍵字...], a:"回答", items: 要附上的項目}
+   w 是權重：一般主題 1，比較籠統的（如「時間」「網站」）設 0.5
+   ===================================================================== */
+const byTab = t => () => ITEMS.filter(i => i.tab === t);
+const byTitle = (...ts) => () => ts.map(t => ITEMS.find(i => i.t.indexOf(t) >= 0)).filter(Boolean);
+const FAQ = [
+  {k:["英檢","檢定","英文檢定","考試","證照考","門檻","校外英檢"], a:"這是本學期辦理的校園英文檢定考試，點選可以看報名時間和連結。也可以自行報名校外考試，請參考本校接受的英文檢定考試機構檔案。",
+   items:() => ITEMS.filter(i => i.tab === "exam" && i.t !== "英語證照上傳說明").concat(byTitle("檢定測驗認列機構")())},
+  {k:["csept","大學校院","團考","英檢","門檻","校外英檢"], a:"<b>CSEPT 校園團考</b><br>報名：9/14(一)–10/26(一)<br>考試：11/22(日)下午<br>成績：預計 12/14–12/23 公布",
+   links:[["📝 CSEPT 報名","https://reg.lttc.org.tw/CSEPT/","12744"]], items:byTitle("CSEPT（校園團考）")},
+  {k:["toeic","多益","英檢","門檻","校外英檢"], a:"多益每月一場，請到官網自行報名。官網也有練習題可以先熟悉題型。",
+   links:[["📝 多益報名","https://www.toeic.com.tw/"]], items:byTitle("TOEIC 多益")},
+  {k:["gept","全民英檢","英檢","門檻","校外英檢"], a:"全民英檢一年約 2–3 次，請到官網自行報名。",
+   links:[["📝 全民英檢報名","https://www.gept.org.tw/"]], items:byTitle("全民英檢")},
+  {k:["linguaskill","領思","劍橋","英檢","門檻","校外英檢"], a:"劍橋領思每月二場，報名時輸入校園專案代碼 <b>KSU</b> 可以享有優惠價格。",
+   links:[["📝 劍橋領思報名","https://www.lsenglish.com.tw/test.php"]], items:byTitle("Linguaskill")},
+  {k:["校內英檢","崑山英檢","校內"], a:"<b>崑山校內英檢</b>限<b>大四以上、曾考過一次校外英檢未通過</b>的同學報名。<br>報名：9/14–11/13 或額滿<br>考試：12/5(六)，成績立即公告",
+   links:[["📝 校內英檢報名","https://www.beclass.com/rid=305282f6aa35ab0a90c8","12744"]], items:byTitle("崑山（校內）英檢")},
+  {k:["上傳","ir","成績單","證書","外語能力檢定課","外語能力檢定","門檻課程"], a:"(1) 校外英檢成績單不論是否通過，都要在兩週內上傳到 IR 系統（IR 系統 → 職涯發展 → 英文證照 → 學生成績查詢）。<br>(2) 沒有上傳的話，不能選修「外語能力檢定」課程。", items:byTitle("英語證照上傳說明")},
+  {k:["學習坊","課後輔導","輔導課","免費課","強化課","上課"], a:"外語學習坊是<b>免費</b>的課後輔導課程，出席 8 成以上會發修業證明，可用於英文課程加分，也可累計微學分。第一梯還有名額的班級，可以直接到教室找老師報名。", items:byTab("workshop")},
+  {k:["日文","日語","日本"], a:"日語相關的有<b>基礎日語強化課程</b>和<b>1 分鐘日文自我介紹影片競賽</b>。日語學習網站可以到「線上學習 → 日語」看。",
+   items:byTitle("基礎日語強化課程","日文自我介紹"), tab:["online","日語","看日語學習網站"]},
+  {k:["競賽","比賽","朗讀","履歷","自我介紹","影片"], a:"本學期的外語競賽如下，收件到 <b>11/18(三)</b>：", items:byTab("contest")},
+  {k:["獎學金","成績優異","獎勵"], a:"外語檢定成績優異可以申請<b>外語能力成績優異學生獎學金</b>，要點和申請表（中英版、中越版）都在這裡：", items:byTitle("成績優異學生獎學金")},
+  {k:["報名費","考試費","補助"], a:"<b>第二外語</b>報名費有補助辦法；經濟不利的同學另外可以申請語文增能獎助金：", items:byTitle("語文增能")},
+  {k:["經濟不利","低收","中低收","弱勢","助學","語文增能","原住民","身心障礙"], a:"符合經濟不利資格的同學，參加外語課程和活動後可以申請<b>語文增能獎助金</b>，申請截止 <b>11/27(五) 中午</b>。<br><b>申請資格（符合任一項）：</b><ul><li>具教育部學雜費減免資格：低收入戶、中低收入戶、身心障礙學生及身心障礙人士子女、特殊境遇家庭子女或孫子女</li><li>具大專校院弱勢學生助學計畫助學金補助資格</li><li>原住民學生</li><li>家庭突遭變故經學校審核通過</li><li>懷孕、分娩或撫育三歲以下子女</li><li>符合衛福部所定青（少）年照顧者</li><li>其他經學校認列之經濟不利學生</li></ul>",
+   links:[["📝 經濟不利 活動及課程報名","https://www.beclass.com/rid=305282f6aa34d4dd5c25","12039"]], items:byTitle("語文增能")},
+  {k:["免修","抵免","不用修"], a:"英檢成績達標的同學可以申請免修通識外語課程，作業要點和申請單在這裡：", items:byTitle("免修通識外語")},
+  {k:["國際移動力","學程","菁英"], a:"國際移動力菁英學分學程的實施要點和申請表：", items:byTitle("國際移動力")},
+  {k:["帳號","密碼","登入","帳密","登不進"], a:"校內學習平台的登入方式：<ul><li><b>空中英語教室、Live ABC</b>：圖書館帳密（學號／身分證號碼，英文字母大寫）</li><li><b>Easy Test</b>：My KSU 帳密</li><li>在校外使用請先設定圖書館遠端連線</li></ul>⚠️ <b>MyET 目前系統維修，本學期暫停使用。</b><br>若仍無法登入，請聯絡通識中心外語組：lc@mail.ksu.edu.tw", tab:["online","校內平台","看校內學習平台"]},
+  {k:["外語選讀","韓文","越南文","印尼文","西班牙文","職場英文"], a:"外語選讀課程如有修習且成績通過，就算完成此課程。<br>例如：114-2 學期修過「外語選讀－韓文」，就不需要再修職場英文或其他外語。"},
+  {k:["線上","網站","練習","自學","單字","聽力","發音","閱讀","文法","寫作","字典","app"], w:.5, a:"「線上學習」分頁整理了校內平台和校外學習網站，依字典、閱讀、聽力發音、文法寫作等分類。", tab:["online","校內平台","前往線上學習"]},
+  {k:["聯絡","電話","email","信箱","辦公室","找誰","承辦"], a:"<b>通識教育中心 外語教學組</b><br>電話：06-205-3210 分機 313 轉 22–23<br>Email：lc@mail.ksu.edu.tw"},
+  {k:["法規","辦法","要點","表單","下載","申請表"], w:.5, a:"外語教學相關的法規和申請表都整理在「法規表單」，點了就能下載。", tab:["docs","","前往法規表單"]},
+  {k:["公告","最新","消息"], w:.5, a:"latest"},
+  {k:["截止","期限","什麼時候","日期","倒數","最近","時間"], w:.5, a:"deadline"},
+  {k:["你好","哈囉","hi","hello","嗨","安安"], a:"嗨！我是外語小幫手 🤖 可以問我英檢報名、學習坊、外語競賽、獎學金、補助、免修等問題，或直接點下面的按鈕。"},
+  {k:["謝謝","感謝","thank","thx"], a:"不客氣！還有其他問題隨時問我 😊"},
+];
+const QUICK = ["英檢怎麼報名","學習坊上課時間","有哪些比賽","最近截止日期","獎學金","報名費補助","免修英文","平台帳號密碼","聯絡外語組"];
+
+function itemBtn(it){
+  const st = it.bid ? statusOf(it.bid) : null, closed = st && st.closed;
+  return '<button class="go-item' + (closed ? " closed" : "") + '" data-id="' + ITEM_ID.get(it) + '">' + it.i + " " + esc(it.t) + (closed ? "（已截止）" : "") + " ›</button>";
+}
+function botAnswer(q){
+  const s = q.toLowerCase();
+  let best = null, top = 0;
+  FAQ.forEach(f => {
+    let sc = 0; f.k.forEach(k => { if (s.indexOf(k.toLowerCase()) >= 0) sc += k.length; });
+    sc *= (f.w || 1);
+    if (sc > top) { top = sc; best = f; }
+  });
+  if (best) {
+    if (best.a === "deadline") return deadlineAnswer();
+    if (best.a === "latest") return latestAnswer();
+    let h = best.a;
+    if (best.links) h += best.links.map(l => {
+      const st = l[2] ? statusOf(l[2]) : null;
+      if (st && st.closed) return '<span class="go-item closed">' + esc(l[0]) + "（已截止）</span>";
+      return '<a class="go-item" href="' + l[1] + '" target="_blank" rel="noopener">' + esc(l[0]) + " ↗</a>";
+    }).join("");
+    if (best.items) h += best.items().map(itemBtn).join("");
+    if (best.tab) h += '<button class="go-item" data-tab="' + best.tab[0] + '" data-grp="' + best.tab[1] + '">📂 ' + best.tab[2] + " ›</button>";
+    return h;
+  }
+  /* 找不到關鍵字 → 用兩個字的詞去比對所有項目 */
+  const grams = [];
+  for (let i = 0; i < s.length - 1; i++) { const g = s.slice(i, i + 2).trim(); if (g.length === 2) grams.push(g); }
+  const hits = ITEMS.map(it => {
+    const txt = [it.t, it.sub, it.tag, it.desc, it.note, it.grp, ...(it.info || []).flat()].join(" ").toLowerCase();
+    return {it, sc: grams.filter(g => txt.indexOf(g) >= 0).length};
+  }).filter(x => x.sc > 0).sort((a, b) => b.sc - a.sc).slice(0, 4);
+  if (hits.length) return "我找到這些可能相關的項目：" + hits.map(x => itemBtn(x.it)).join("");
+  return "抱歉，這個問題我還不會回答 🙇 可以換個說法，或直接聯絡外語教學組：<br>📞 06-205-3210 分機 313 轉 22–23<br>✉️ lc@mail.ksu.edu.tw";
+}
+function deadlineAnswer(){
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const list = DEADLINES.map(x => {
+    const days = Math.round((new Date(x.d + "T00:00:00") - today) / 864e5);
+    const it = ITEMS.find(i => i.t === x.ref), st = it && it.bid ? statusOf(it.bid) : null;
+    return {x, days, it, off: days < 0 || (st && st.closed)};
+  }).filter(o => !o.off).slice(0, 5);
+  if (!list.length) return "目前沒有即將到來的截止日期。";
+  return "接下來的重要日期：<ul>" + list.map(o => "<li><b>" + o.x.d.slice(5).replace("-", "/") + "</b> " + esc(o.x.n) +
+    (o.days === 0 ? "（今天！）" : "（剩 " + o.days + " 天）") + "</li>").join("") + "</ul>" +
+    list.map(o => o.it).filter((v, i, a) => v && a.indexOf(v) === i).map(itemBtn).join("");
+}
+function latestAnswer(){
+  if (!NEWS) return "學校公告還在同步中，可以到「學校公告」分頁看看。" + '<button class="go-item" data-tab="news" data-grp="">📢 前往學校公告 ›</button>';
+  const open = NEWS.list.filter(b => b.lang && endOf(b.end) >= new Date()).slice(0, 5);
+  if (!open.length) return "目前沒有開放中的外語相關公告。";
+  return "目前開放中的外語相關公告：" + open.map(b => '<button class="go-item" data-bul="' + b.id + '">📢 ' + esc(b.title) + " ›</button>").join("");
+}
+
+const chat = $("#chat"), msgs = $("#msgs");
+function addMsg(html, who){
+  const d = document.createElement("div"); d.className = "msg " + who; d.innerHTML = html;
+  msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight; return d;
+}
+function ask(q){
+  q = q.trim(); if (!q) return;
+  addMsg(esc(q), "me");
+  const t = addMsg('<span class="dots"><i></i><i></i><i></i></span>', "bot");
+  setTimeout(() => { t.innerHTML = botAnswer(q); msgs.scrollTop = msgs.scrollHeight; }, 450 + Math.random() * 350);
+}
+function openChat(){
+  chat.classList.add("open"); $("#fabTip").classList.add("hidden"); setTimeout(qArrows, 50);
+  if (!msgs.children.length) addMsg("嗨！我是<b>外語小幫手</b> 🤖<br>英檢報名、學習坊、外語競賽、獎學金、補助、免修……都可以問我，也可以點下面的常見問題。", "bot");
+  if (matchMedia("(min-width:761px)").matches) setTimeout(() => $("#askIn").focus(), 300);
+}
+$("#quick").innerHTML = QUICK.map(q => '<button type="button" data-q="' + q + '">' + q + "</button>").join("");
+$("#fab").onclick = () => chat.classList.contains("open") ? chat.classList.remove("open") : openChat();
+$("#chatX").onclick = () => chat.classList.remove("open");
+/* 常見問題列：滾輪、拖曳、左右箭頭都能滑動 */
+const qk = $("#quick");
+function qArrows(){ $("#qL").classList.toggle("off", qk.scrollLeft < 4); $("#qR").classList.toggle("off", qk.scrollLeft + qk.clientWidth >= qk.scrollWidth - 4); }
+qk.addEventListener("scroll", qArrows, {passive:true});
+qk.addEventListener("wheel", e => { if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { e.preventDefault(); qk.scrollLeft += e.deltaY; } }, {passive:false});
+$("#qL").onclick = () => { qk.scrollLeft -= qk.clientWidth * .7; };
+$("#qR").onclick = () => { qk.scrollLeft += qk.clientWidth * .7; };
+let qd = null, qMoved = false;
+qk.addEventListener("pointerdown", e => { if (e.pointerType !== "mouse") return; qd = {x:e.clientX, s:qk.scrollLeft}; qMoved = false; });
+addEventListener("pointermove", e => { if (!qd) return; const dx = e.clientX - qd.x; if (Math.abs(dx) > 5) { qMoved = true; qk.classList.add("drag"); } if (qMoved) qk.scrollLeft = qd.s - dx; });
+addEventListener("pointerup", () => { qd = null; qk.classList.remove("drag"); });
+qk.onclick = e => { if (qMoved) { qMoved = false; return; } const b = e.target.closest("[data-q]"); if (b) ask(b.dataset.q); };
+function sendAsk(){ const v = $("#askIn").value; $("#askIn").value = ""; ask(v); }
+$("#askBtn").onclick = sendAsk;
+$("#askIn").addEventListener("keydown", e => { if (e.key === "Enter" && !e.isComposing && e.keyCode !== 229) { e.preventDefault(); sendAsk(); } });
+msgs.onclick = e => {
+  const a = e.target.closest("[data-id]"); if (a) return openItem(ITEMS[a.dataset.id]);
+  const n = e.target.closest("[data-bul]"); if (n) return openBulletin(n.dataset.bul);
+  const t = e.target.closest("[data-tab]");
+  if (t) { if (t.dataset.grp) grp = t.dataset.grp; $("#q").value = ""; show(t.dataset.tab); if (innerWidth <= 760) chat.classList.remove("open"); }
+};
+
+/* ---------- 小動畫 ---------- */
+addEventListener("pointerdown", e => {
+  const b = e.target.closest(".btn"); if (!b) return;
+  const r = b.getBoundingClientRect(), s = Math.max(r.width, r.height), sp = document.createElement("span");
+  sp.className = "rip"; sp.style.cssText = `width:${s}px;height:${s}px;left:${e.clientX-r.left-s/2}px;top:${e.clientY-r.top-s/2}px`;
+  b.appendChild(sp); setTimeout(() => sp.remove(), 600);
+});
+const words = ["English", "日本語", "TOEIC", "Tiếng Việt", "CSEPT", "한국어", "Linguaskill"];
+let wi = 0, ci = 0, del = false;
+(function tick(){
+  const w = words[wi]; $("#typing").textContent = w.slice(0, ci);
+  if (!del && ci < w.length) ci++; else if (!del) { del = true; return setTimeout(tick, 1400); }
+  else if (ci > 0) ci--; else { del = false; wi = (wi + 1) % words.length; }
+  setTimeout(tick, del ? 55 : 110);
+})();
+["Hello","こんにちは","ABC","Xin chào","안녕","Bonjour","TOEIC","あ","Aa","Hola","GEPT","ありがとう"].forEach((t, i) => {
+  const s = document.createElement("span"); s.textContent = t;
+  s.style.cssText = `left:${i*8.3+Math.random()*4}%;font-size:${14+Math.random()*16}px;animation-duration:${8+Math.random()*7}s;animation-delay:${-Math.random()*14}s`;
+  $("#floaters").appendChild(s);
+});
+
+show("home");
+if (CAN_SYNC) {
+  callApi("getBulletins")
+    .then(d => { d.list.forEach(b => { b.lang = LANG_WORDS.test(b.title) || b.email === LANG_EMAIL; }); NEWS = d; refresh(); })
+    .catch(e => { NEWS_ERR = e.message || String(e); refresh(); });
+}
+</script>
+</body>
+</html>
